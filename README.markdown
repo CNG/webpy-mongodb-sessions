@@ -8,21 +8,21 @@ To setup:
 
     import web
     from session import MongoStore
-    from pymongo import Connection
+    from pymongo import MongoClient
     #if you want to do user auth stuff add the following line
-    import users
+    import webpy_mongodb_sessions.users as users
 
     #First get a MongoDB database object
-    c = Connection()
+    c = MongoClient()
     db = c.webpy
 
     #Create a new session object, passing the db and collection name to the MongoStore object
     session = web.session.Session(app, MongoStore(db, 'sessions'))
 
     #If you want to do user authentication and stuff aswell, add these two lines
-    users.session = session
     users.collection = db.users
-    users.SALTY_GOODNESS = u'RANDOM_SALT'
+    users.session = session
+    users.SALT = u'RANDOM_SALT'
 
 To use:
 ===
